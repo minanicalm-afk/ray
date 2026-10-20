@@ -4,18 +4,22 @@
   --font-sans: var(--font-outfit), sans-serif;
   --font-serif: var(--font-fraunces), serif;
   --font-mono: var(--font-plex), ui-monospace, monospace;
-  --color-ink: #1c1914;
-  --color-paper: #f3efe6;
-  --color-panel: #fffdf8;
-  --color-line: #e4dccb;
-  --color-pine: #17352b;
-  --color-pine-soft: #245544;
-  --color-moss: #2c6b4e;
-  --color-gold: #a56b12;
-  --color-gold-soft: #f6e7c8;
-  --color-clay: #8d342c;
-  --color-clay-soft: #f8e6e2;
-  --color-mist: #efe8d8;
+  --color-ink: #e9fbff;
+  --color-paper: #02131b;
+  --color-panel: #05222c;
+  --color-line: #144657;
+  --color-pine: #22dcec;
+  --color-pine-soft: #57eaf5;
+  --color-moss: #2fe0ae;
+  --color-gold: #f68fc0;
+  --color-gold-soft: #432233;
+  --color-clay: #e14b63;
+  --color-clay-soft: #3d1e2e;
+  --color-mist: #08303d;
+}
+
+:root {
+  color-scheme: dark;
 }
 
 body {

@@ -5,14 +5,14 @@ import { ClearFlash } from "./clear-flash"
 export const btn = {
   primary:
     "inline-flex items-center justify-center rounded-full bg-pine px-4 py-2 text-sm font-medium text-paper hover:bg-pine-soft disabled:cursor-not-allowed disabled:opacity-40",
-  gold: "inline-flex items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-medium text-ink hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40",
+  gold: "inline-flex items-center justify-center rounded-full bg-gold px-4 py-2 text-sm font-medium text-paper hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40",
   ghost:
     "inline-flex items-center justify-center rounded-full border border-line bg-panel px-4 py-2 text-sm font-medium hover:bg-mist disabled:cursor-not-allowed disabled:opacity-40",
   danger: "inline-flex items-center justify-center rounded-full bg-clay px-4 py-2 text-sm font-medium text-white hover:opacity-90",
   tiny: "inline-flex items-center justify-center rounded-full px-3 py-1 text-xs font-medium text-pine hover:bg-mist",
 }
 
-export const inputClass = "w-full rounded-xl border border-line bg-white px-3 py-2 text-sm"
+export const inputClass = "w-full rounded-xl border border-line bg-mist px-3 py-2 text-sm text-ink placeholder:text-ink/40"
 export const badClass = "w-full rounded-xl border border-clay bg-clay-soft px-3 py-2 text-sm"
 
 export function fieldClass(invalid: boolean) {

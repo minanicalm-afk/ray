@@ -23,7 +23,7 @@ export function ConfirmButton({
         {children}
       </button>
       {open ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/40 p-4">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4">
           <form action={action} className="w-full max-w-md rounded-3xl bg-panel p-6 shadow-xl">
             {Object.entries(fields).map(([key, value]) => (
               <input key={key} type="hidden" name={key} value={value} />

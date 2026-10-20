@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useState, type MouseEvent } from "react"
 import { qty } from "@/lib/format"
 
-const colors = ["#17352b", "#a56b12", "#8c4a3a"]
+const colors = ["#22dcec", "#f68fc0", "#b78bfa"]
 
 export function SalesChart({
   span,
@@ -76,8 +76,8 @@ export function SalesChart({
             const y = pad.top + innerH - tick * innerH
             return (
               <g key={tick}>
-                <line x1={pad.left} x2={width - pad.right} y1={y} y2={y} stroke="#e4dccb" />
-                <text x={pad.left - 8} y={y + 4} textAnchor="end" fontSize="11" fill="#1c1914" opacity="0.55">{Math.round(max * tick)}</text>
+                <line x1={pad.left} x2={width - pad.right} y1={y} y2={y} stroke="#144657" />
+                <text x={pad.left - 8} y={y + 4} textAnchor="end" fontSize="11" fill="#e9fbff" opacity="0.55">{Math.round(max * tick)}</text>
               </g>
             )
           })}
@@ -85,17 +85,17 @@ export function SalesChart({
             const x = pad.left + index * groupW + groupW / 2
             return (
               <g key={day.key}>
-                <line x1={x} x2={x} y1={pad.top} y2={pad.top + innerH} stroke="#e4dccb" strokeOpacity={hover === index ? 0 : 0.7} />
-                <text x={x} y={height - 10} textAnchor="middle" fontSize={span === "month" ? "10" : "11"} fill="#1c1914" opacity={hover === index ? 1 : 0.6}>{day.label}</text>
+                <line x1={x} x2={x} y1={pad.top} y2={pad.top + innerH} stroke="#144657" strokeOpacity={hover === index ? 0 : 0.7} />
+                <text x={x} y={height - 10} textAnchor="middle" fontSize={span === "month" ? "10" : "11"} fill="#e9fbff" opacity={hover === index ? 1 : 0.6}>{day.label}</text>
               </g>
             )
           })}
-          {active ? <line x1={active.x} x2={active.x} y1={pad.top} y2={pad.top + innerH} stroke="#1c1914" strokeOpacity="0.35" /> : null}
+          {active ? <line x1={active.x} x2={active.x} y1={pad.top} y2={pad.top + innerH} stroke="#e9fbff" strokeOpacity="0.4" /> : null}
           {drawn.map((item) => (
             <g key={item.name}>
               <polyline fill="none" stroke={item.color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" points={item.points.map((point) => `${point.x},${point.y}`).join(" ")} />
               {item.points.map((point, index) => (
-                <circle key={point.key} cx={point.x} cy={point.y} r={hover === index ? 7 : 4.5} fill={item.color} stroke="#fffdf8" strokeWidth={hover === index ? 3 : 2}>
+                <circle key={point.key} cx={point.x} cy={point.y} r={hover === index ? 7 : 4.5} fill={item.color} stroke="#05222c" strokeWidth={hover === index ? 3 : 2}>
                   <title>{`${item.name} · ${point.label}: ${qty(point.value)} phones`}</title>
                 </circle>
               ))}
