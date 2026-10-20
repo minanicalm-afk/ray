@@ -39,5 +39,5 @@ Open http://localhost:3000. The demo password for every account is `Ray-demo-202
 | Mombasa agent two | mombasa.agent2@ray.test |
 | Nyandarua agent | nyandarua.agent@ray.test |
 
-Data is stored in `data/ray.db`. Delete that file to start again.
+Locally, data is stored in `data/ray.db`. On Vercel the deployment directory is read-only, so the app copies the committed snapshot in `data/seed.db` into the writable temp directory and works from there. That temp copy lasts for the life of a server instance only, so connect a hosted database before relying on Vercel for day-to-day records.
 # ray

@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto"
-import { mkdirSync } from "node:fs"
+import { copyFileSync, existsSync, mkdirSync } from "node:fs"
+import os from "node:os"
 import path from "node:path"
 import { DatabaseSync } from "node:sqlite"
 import { hashPassword } from "./password"
@@ -8,15 +9,42 @@ type SqlValue = string | number | null | bigint
 
 const globalForDb = globalThis as unknown as { rayDb?: DatabaseSync }
 
+function seedSnapshot() {
+  return path.join(process.cwd(), "data", "seed.db")
+}
+
+function databaseCandidates() {
+  const configured = process.env.RAY_DB_PATH ?? process.env.DATABASE_PATH
+  if (configured) return [configured]
+  const local = path.join(process.cwd(), "data", "ray.db")
+  const shared = path.join(os.tmpdir(), "ray", "ray.db")
+  // Vercel's deployment directory is read-only; only the temp directory is writable.
+  return process.env.VERCEL ? [shared, local] : [local, shared]
+}
+
 function create() {
-  const directory = path.join(process.cwd(), "data")
-  mkdirSync(directory, { recursive: true })
-  const database = new DatabaseSync(path.join(directory, "ray.db"))
-  database.exec("PRAGMA foreign_keys = ON")
-  database.exec("PRAGMA busy_timeout = 3000")
-  database.exec(SCHEMA)
-  seed(database)
-  return database
+  let lastError: unknown = null
+  for (const file of databaseCandidates()) {
+    try {
+      if (file !== ":memory:") {
+        mkdirSync(path.dirname(file), { recursive: true })
+        const snapshot = seedSnapshot()
+        const restore = Boolean(process.env.VERCEL) || file.startsWith(os.tmpdir())
+        if (restore && !existsSync(file) && existsSync(snapshot) && path.resolve(file) !== path.resolve(snapshot)) {
+          copyFileSync(snapshot, file)
+        }
+      }
+      const database = new DatabaseSync(file)
+      database.exec("PRAGMA foreign_keys = ON")
+      database.exec("PRAGMA busy_timeout = 3000")
+      database.exec(SCHEMA)
+      seed(database)
+      return database
+    } catch (error) {
+      lastError = error
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error("The database could not be opened.")
 }
 
 let migrated = false
